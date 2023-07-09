@@ -10,6 +10,9 @@ def rsaMenu():
 
     print('\n\nGenerating keys.........')
     keys = keyGenerator.generateRsaKeys()
+    signature = None
+    plaintext = None
+    ciphertext = None
     
     while True:
         screen = utils.readFile('utils/screens/rsa-screen.txt')
@@ -41,11 +44,24 @@ def rsaMenu():
             
             plaintext = rsa.rsaOaepDecryption(ciphertext, keys['private'])
 
-            utils.waitKey(plaintext) 
+            utils.waitKey(plaintext)
+
+        if keyboard == 's':
+            with open('texts/rumbling-plain.txt', 'rb') as file:
+                plaintext = file.read()
+
+            signature = rsa.rsaSignature(plaintext, keys['public'])
+
+            utils.waitKey(rsa.int_to_bytes(signature))
+        
+        if keyboard == 'v':
+            verify = rsa.rsaVerifySignature(signature, plaintext, keys['private'])
+
+            utils.waitKey(verify)
 
 def mainMenu():
     """Implements the Main Menu"""
-    
+
     while True:
         os.system('clear')
         screen = utils.readFile('utils/screens/main-screen.txt')

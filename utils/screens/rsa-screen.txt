@@ -10,4 +10,5 @@ ____________________________
 'e' -> Encrypt plaintext
 'd' -> Decrypt ciphertext
 's' -> RSA Signature
+'v' -> Verify signature
 'b' -> Back to main menu

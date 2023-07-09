@@ -97,12 +97,29 @@ def rsaOaepDecryption(ciphertext, privateKey, label=b''):
 
     return plaintext
 
-# def rsaSignature(message, publicKey):
-#     n = publicKey['n']
-#     e = publicKey['e']
+def rsaSignature(message, publicKey):
+    n = publicKey['n']
+    e = publicKey['e']
 
-#     hashedMessage = sha3_256(message).digest()
-#     hashedMessage = int.from_bytes(hashedMessage, 'big')
-#     signature = pow(message, e, n)
+    hashedMessage = sha3_256(message).digest()
+    hashedMessage = int.from_bytes(hashedMessage, 'big')
 
-#     return signature
+    signature = pow(hashedMessage, e, n)
+
+    return signature
+
+def rsaVerifySignature(signature, message, privateKey):
+    d = privateKey['d']
+    n = privateKey['n']
+
+    signature = int_to_bytes(signature)
+
+    hashedMessage = sha3_256(message).digest()
+    hashedMessage = int.from_bytes(hashedMessage, 'big')
+
+    hashedSignature = int.from_bytes(signature, 'big')
+    hashedSignature = pow(hashedSignature, d, n)
+
+    verify = True if hashedSignature == hashedMessage else False
+    
+    return verify
