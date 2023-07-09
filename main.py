@@ -52,7 +52,7 @@ def rsaMenu():
 
             signature = rsa.rsaSignature(plaintext, keys['public'])
 
-            utils.waitKey(rsa.int_to_bytes(signature))
+            utils.waitKey(signature)
         
         if keyboard == 'v':
             verify = rsa.rsaVerifySignature(signature, plaintext, keys['private'])

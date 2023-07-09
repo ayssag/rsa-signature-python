@@ -2,6 +2,7 @@ import hashlib
 import os
 from math import ceil
 from hashlib import sha3_256
+import base64
 
 def sha1(message):
     """Calculates the SHA-1 hash of the input."""
@@ -29,7 +30,6 @@ def bitwise_xor_bytes(a, b):
 
 def int_to_bytes(number):
     """Converts an integer number into a byte string representation."""
-    
     return number.to_bytes(length=(8 + (number + (number < 0)).bit_length()) // 8, byteorder='big', signed=True)
 
 def rsaOaepEncryption(message, publicKey, label=b''):
@@ -97,6 +97,28 @@ def rsaOaepDecryption(ciphertext, privateKey, label=b''):
 
     return plaintext
 
+    import base64
+
+def encodeBase64(signature):
+    # Convert the signature bytes to Base64
+    signature_base64 = base64.b64encode(signature)
+
+    # Convert the Base64 bytes to a string
+    signature_base64_string = signature_base64.decode('utf-8')
+
+    return signature_base64_string
+
+
+def decodeBase64(signature_base64_string):
+    # Convert the Base64 string to bytes
+    signature_base64 = signature_base64_string.encode('utf-8')
+
+    # Decode the Base64 bytes to signature bytes
+    signature = base64.b64decode(signature_base64)
+
+    return signature
+
+
 def rsaSignature(message, publicKey):
     n = publicKey['n']
     e = publicKey['e']
@@ -105,21 +127,23 @@ def rsaSignature(message, publicKey):
     hashedMessage = int.from_bytes(hashedMessage, 'big')
 
     signature = pow(hashedMessage, e, n)
-
-    return signature
+    
+    signature = int_to_bytes(signature)
+    
+    return encodeBase64(signature)
 
 def rsaVerifySignature(signature, message, privateKey):
     d = privateKey['d']
     n = privateKey['n']
 
-    signature = int_to_bytes(signature)
+    signature = decodeBase64(signature)
+    signature = int.from_bytes(signature, byteorder='big')
 
     hashedMessage = sha3_256(message).digest()
     hashedMessage = int.from_bytes(hashedMessage, 'big')
 
-    hashedSignature = int.from_bytes(signature, 'big')
-    hashedSignature = pow(hashedSignature, d, n)
+    hashedSignature = pow(signature, d, n)
 
     verify = True if hashedSignature == hashedMessage else False
-    
+
     return verify
