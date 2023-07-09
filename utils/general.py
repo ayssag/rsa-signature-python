@@ -3,7 +3,14 @@ import os
 
 def readFile(filename):
     file = open(filename, 'r')
-    return file
+    message = [line for line in file]
+    file.close()
+    return message
+
+def writeFile(filename, content):
+    file = open(filename, 'w')
+    file.write(content)
+    file.close()
 
 def printScreen(screen, key=None):
     for line in screen:

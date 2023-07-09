@@ -6,6 +6,8 @@
 ╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝
                         
 ____________________________
+'k' -> See the generated keys
 'e' -> Encrypt plaintext
 'd' -> Decrypt ciphertext
+'s' -> RSA Signature
 'b' -> Back to main menu

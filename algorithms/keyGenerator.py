@@ -36,7 +36,10 @@ def generateRsaKeys():
             'n': n,
             'e': e
         },
-        'private': d
+        'private': {
+            'd': d,
+            'n': n
+        }
     }
 
     return rsaKeys
