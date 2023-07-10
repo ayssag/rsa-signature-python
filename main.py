@@ -34,9 +34,9 @@ def rsaMenu():
             ciphertext = rsa.rsaOaepEncryption(plaintext, keys['public'])
 
             with open('texts/rsa-cipher.txt', 'wb') as file:
-                file.write(rsa.int_to_bytes(ciphertext))
+                file.write(rsa.int2Bytes(ciphertext))
 
-            utils.waitKey(rsa.int_to_bytes(ciphertext))
+            utils.waitKey(rsa.int2Bytes(ciphertext))
 
         if keyboard == 'd':
             with open('texts/rsa-cipher.txt', 'rb') as file:

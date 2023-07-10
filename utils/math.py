@@ -26,13 +26,11 @@ def isPrime(n, k=5):
     if n <= 1 or n % 2 == 0:
         return False
 
-    # Representar n - 1 como 2^r * d, onde d é ímpar
     r, d = 0, n - 1
     while d % 2 == 0:
         r += 1
         d //= 2
 
-    # Executar k iterações do teste
     for _ in range(k):
         a = random.randint(2, n - 2)
         x = pow(a, d, n)

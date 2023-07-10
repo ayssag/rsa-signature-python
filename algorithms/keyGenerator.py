@@ -14,14 +14,6 @@ def generateRsaKeys():
 
     - Chaves públicas são: N e E
     - Chaves privadas são: P, Q e ((D))
-
-    Passo a passo para encriptar
-    (C^E) MOD N para todo caractere C em texto plano
-    - C: valor na tabela ASCII
-
-    Passo a passo para decriptar
-    (H^D) MOD N para todo caractere H em texto cifrado
-    - H: valor na tabela ASCII
     """
     p = utils.generateLargePrime(1024)
     q = utils.generateLargePrime(1024)
