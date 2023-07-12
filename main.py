@@ -72,6 +72,9 @@ def mainMenu():
             break
         if keyboard == 'r':
             rsaMenu()
+        if keyboard == 'a':
+            print('\nNão foi implementado...')
+            time.sleep(2)
 
 if __name__ == '__main__':
     mainMenu()

@@ -19,7 +19,7 @@ def findEAndD(z):
             return e, d
     return None, None
 
-def isPrime(n, k=5):
+def isPrime(n, k=40):
     """Teste de primalidade de Miller-Rabin"""
     if n == 2 or n == 3:
         return True
